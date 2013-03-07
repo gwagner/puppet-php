@@ -2,28 +2,6 @@ class php::composer($path)
 {
     include php, php::config, git
 
-    file
-    {
-        '/root/.composer':
-            ensure => 'directory',
-            mode   => 0644,
-            owner  => 'root',
-            group  => 'root',
-            require => [
-                Exec["php-composer-install"]
-            ];
-        '/root/.composer/config.json':
-            mode => 644,
-            owner => "root",
-            group => "root",
-            path => "/root/.composer/config.json",
-            source => "puppet:///modules/php/composer-config.json",
-            require => [
-                Exec["php-composer-install"],
-                File["/root/.composer"]
-            ];
-    }
-
     exec {
         # First make sure we have composer
         "php-composer-install":
