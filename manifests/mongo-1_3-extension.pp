@@ -29,7 +29,7 @@ class php::mongo-1_3-extension
         'php-ext-mongo':
             command => '/tmp/install-php-mongo.sh',
             user => 'root',
-            onlyif => "test `php --re mongo | grep version | grep ${php::config::mongo_1_3_version} } | wc -l` -eq 0",
+            onlyif => "test `php --re mongo | grep version | grep ${php::config::mongo_1_3_version} | wc -l` -eq 0",
             require => [
                 File['install-php-mongo.sh'],
                 File['mongo-package'],
