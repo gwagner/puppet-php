@@ -2,16 +2,17 @@
 
 cd /tmp/
 
-if [ ! -f mongo-php-driver-<%= scope.lookupvar "php::config::mongo_version" %>.tar.gz ]
+if [ ! -f mongo-php-driver-<%= @installingMongoDriverVersion %>.tar.gz ]
 then
     exit 1
 fi
 
-tar -xzvf mongo-php-driver-<%= scope.lookupvar "php::config::mongo_version" %>.tar.gz
+tar -xzvf mongo-php-driver-<%= @installingMongoDriverVersion %>.tar.gz
+rm -f mongo-php-driver-*.tar.gz
+
 cd mongo-php-*
-phpize
-./configure
-make
-make install
+
+phpize && ./configure && make && make install
+
 cd ..
 rm -rf mongo-php-*

@@ -10,7 +10,8 @@ class php::config {
     # Extension Version Information
     $memcache_version = '3.0.7-2.ius.el6'
     $memcached_version = '2.1.0-2.ius.el6'
-    $mongo_version = '1.2.12'
+    $mongo_1_2_version = '1.2.12'
+    $mongo_1_3_version = '1.3.4'
 
     $extension_dependencies = [
         File['/etc/php.d'],
