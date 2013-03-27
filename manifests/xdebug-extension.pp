@@ -1,10 +1,10 @@
-class php::xcache-extension
+class php::xdebug-extension
 {
     require php::config, php::pear-extension, repo_ius
 
     package {
         'php-ext-xdebug':
-            name => "${php::config::php_prefix}-xdebug-${php::config::php_xdebug_version}",
+            name => "${php::config::php_prefix}-pecl-xdebug-${php::config::php_xdebug_version}",
             ensure => installed,
             provider => 'yum',
             require => [
