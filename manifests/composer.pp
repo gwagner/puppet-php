@@ -2,6 +2,15 @@ class php::composer($path)
 {
     include php, php::config, git
 
+    file {
+        'composer_home':
+            path   => '/root/.composer',
+            ensure => 'directory',
+            mode   => 0644,
+            owner  => 'root',
+            group  => 'root';
+    }
+
     exec {
         # First make sure we have composer
         "php-composer-install":
@@ -18,7 +27,9 @@ class php::composer($path)
             command => "php composer.phar install -v",
             cwd => $path,
             creates => "${path}/composer.lock",
+            environment => "COMPOSER_HOME=/root/.composer",
             require => [
+                File['composer_home'],
                 Exec['php-composer-install'],
                 Package['git', "${php::config::php_prefix}-xml-${php::config::php_version}"],
                 $php::config::extension_dependencies
@@ -28,7 +39,9 @@ class php::composer($path)
         "php-composer-update":
             command => "php composer.phar update -v",
             cwd => $path,
+            environment => "COMPOSER_HOME=/root/.composer",
             require => [
+                File['composer_home'],
                 Exec['php-composer-install'],
                 Exec['php-composer-init'],
                 Package['git', "${php::config::php_prefix}-xml-${php::config::php_version}"],
