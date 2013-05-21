@@ -1,6 +1,6 @@
 class php::composer($path)
 {
-    include php, php::config, git
+    include php, git
 
     file {
         'composer_home':
@@ -18,8 +18,7 @@ class php::composer($path)
             cwd => $path,
             creates => "${path}/composer.phar",
             require => [
-                Package['git', "${php::config::php_prefix}-xml-${php::config::php_version}"],
-                $php::config::extension_dependencies
+                Package['git', "php-ext-xml", "php-common", "php-cli"],
             ];
 
         # Then do an init
@@ -31,8 +30,7 @@ class php::composer($path)
             require => [
                 File['composer_home'],
                 Exec['php-composer-install'],
-                Package['git', "${php::config::php_prefix}-xml-${php::config::php_version}"],
-                $php::config::extension_dependencies
+                Package['git', "php-ext-xml", "php-common", "php-cli"],
             ];
 
         # Any other time the machine starts, do an update
@@ -44,8 +42,7 @@ class php::composer($path)
                 File['composer_home'],
                 Exec['php-composer-install'],
                 Exec['php-composer-init'],
-                Package['git', "${php::config::php_prefix}-xml-${php::config::php_version}"],
-                $php::config::extension_dependencies
+                Package['git', "php-ext-xml", "php-common", "php-cli"],
             ];
 
     }
