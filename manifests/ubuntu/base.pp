@@ -38,7 +38,7 @@ class php::ubuntu::base
             mode => 644,
             owner => "root",
             group => "root",
-            path => "/etc/php.ini",
+            path => "/etc/php5/cli/php.ini",
             content => template('php/ubuntu/php-ini.erb'),
             require => [
                 Package["php-cli"]

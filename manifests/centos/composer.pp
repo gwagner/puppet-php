@@ -1,4 +1,4 @@
-class php::composer($path)
+class php::centos::composer($path)
 {
     include php, git
 
